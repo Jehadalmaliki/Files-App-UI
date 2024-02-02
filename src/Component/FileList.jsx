@@ -5,6 +5,7 @@ import axios from "axios";
 import Button from "./ui/Button";
 import removehsvg from "../assets/remove.svg";
 import pdfsvg from "../assets/pdf.svg";
+import docsvg from "../assets/doc.svg";
 import { Document, Page } from "react-pdf";
 
 const FileList = ({ currentFolderId }) => {
@@ -60,7 +61,7 @@ const FileList = ({ currentFolderId }) => {
 
                   switch (fileExtension) {
                     case "pdf":
-                    case "docs":
+                    
                       fileContent = (
                         <div className="flex flex-row">
                             <a
@@ -73,8 +74,31 @@ const FileList = ({ currentFolderId }) => {
                               <img
                                 src={pdfsvg}
                                 alt={file.name}
-                                height={40}
-                                width={60}
+                                height={50}
+                                width={70}
+                              />
+                            
+                            </a>  
+                                        
+                        </div>
+                      );
+                      break;
+                      case "docx":
+                    
+                      fileContent = (
+                        <div className="flex flex-row">
+                            <a
+                              href={`http://127.0.0.1:8000/storage/${file.name}`}
+                              target="_blank"
+                              download={file.name}
+                              rel="noopener noreferrer"
+                            >
+                              
+                              <img
+                                src={docsvg}
+                                alt={file.name}
+                                height={50}
+                                width={70}
                               />
                             
                             </a>  
