@@ -9,11 +9,10 @@ const FileList = ({ currentFolderId }) => {
 
   useEffect(() => {
     const fetchFiles = () => {
-      fetch(`http://127.0.0.1:8000/api/files/index`)
+      fetch(`http://127.0.0.1:8000/api/files`)
         .then((res) => res.json())
         .then((response) => {
-          console.log(response.name);
-          setFiles(response.name); // Update state with the fetched data
+          setFiles(response.name);
         })
         .catch((error) => {
           console.error("Error fetching files:", error);
@@ -22,7 +21,7 @@ const FileList = ({ currentFolderId }) => {
     };
 
     fetchFiles();
-  }, [currentFolderId]);
+  }, []);
   const viewFileDetails = (fileId) => {
     // Implement file details view functionality
     console.log(`View details for file with id ${fileId}`);
@@ -51,17 +50,7 @@ const FileList = ({ currentFolderId }) => {
               imgClass=""
               interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
             />
-            <Button
-              content="Delete"
-              text-transform="capitalize"
-              filled="true"
-              size="small"
-              fontSize="text-sm md:text-base text-white"
-              radius="md"
-              onClick={() => deleteFile(file.id)}
-              imgClass=""
-              interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
-            />
+          
      */}
 
       <div className="overflow-x-auto md:container p-2 mx-auto mt-12 bg-white rounded border-2  border-cyan">
@@ -70,6 +59,7 @@ const FileList = ({ currentFolderId }) => {
             <tr className="text-left">
               <th className="p-3">ID</th>
               <th className="p-3">Name</th>
+              <th className="p-3">Privew</th>
               <th className="p-3">Issued</th>
               <th className="p-3">size</th>
               <th className="p-3">Action</th>
@@ -78,52 +68,83 @@ const FileList = ({ currentFolderId }) => {
           <tbody>
             {files ? (
               files.length > 0 ? (
-                files.map((file) => (
-                  <tr
-                    key={file.id}
-                    className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900"
-                  >
-                    <td className="p-3">
-                      <p> {file.id}</p>
-                    </td>
-                    <td className="p-3">
-                      {" "}
-                      <p>
-                        {" "}
-                        <img src={file.name} alt="imag" />
-                      </p>
-                    </td>
-                    <td className="p-3">
-                      <p>
-                        {new Intl.DateTimeFormat("en-US", {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          second: "2-digit",
-                        }).format(new Date(file.created_at))}
-                      </p>
-                    </td>
-                    <td className="p-3">
-                      <p> {file.size} KB</p>
-                    </td>
-                    <td className="p-3">
-                      <Button
-                        content="Delete"
-                        text-transform="capitalize"
-                        filled="true"
-                        size="small"
-                        fontSize="text-sm md:text-base text-white"
-                        radius="md"
-                        onClick={() => deleteFile(file.id)}
-                        imgClass=""
-                        interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
-                      />
-                    </td>
-                 
-                  </tr>
-                ))
+                files.map((file) => {
+                  const fileExtension = file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+                  let fileContent;
+
+                  switch (fileExtension) {
+                    case "pdf":
+                      fileContent = <span>PDF Preview Placeholder</span>;
+                      break;
+                    case "txt":
+                      fileContent = <span>Text Content Placeholder</span>;
+                      break;
+                    case "webp":
+                    case "png":
+                    case "jpg":
+                    case "svg":
+                    case "gif":
+                    case "jpeg":
+                      fileContent = (
+                        <img
+                          src={`http://127.0.0.1:8000/storage/${file.name}`}
+                          alt={file.name}
+                        />
+                      );
+                      break;
+
+                    default:
+                      fileContent = <span>Unknown File Type</span>;
+                  }
+
+                  return (
+                    <tr
+                      key={file.id}
+                      className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900"
+                    >
+                      <td className="p-3">
+                        <p>{file.id}</p>
+                      </td>
+                      <td className="p-3">
+                        <p>{file.name}</p>
+                      </td>
+                      <td className="p-3">
+                        <p>{fileContent}</p>
+                      </td>
+                      <td className="p-3">
+                        <p>
+                          {new Intl.DateTimeFormat("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                          }).format(new Date(file.created_at))}
+                        </p>
+                      </td>
+                      <td className="p-3">
+                        <p>{file.size} KB</p>
+                      </td>
+                      <td className="p-3">
+                        <Button
+                          content="Delete"
+                          text-transform="capitalize"
+                          filled="true"
+                          size="small"
+                          fontSize="text-sm md:text-base text-white"
+                          radius="md"
+                          onClick={() => deleteFile(file.id)}
+                          imgClass=""
+                          interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
+                        />
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
                 <p>No files available</p>
               )
