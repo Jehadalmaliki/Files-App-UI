@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "./ui/Button";
 import removehsvg from "../assets/remove.svg";
-
+import pdfsvg from "../assets/pdf.svg";
+import { Document, Page } from "react-pdf";
 
 const FileList = ({ currentFolderId }) => {
   const [files, setFiles] = useState([]);
@@ -18,7 +19,6 @@ const FileList = ({ currentFolderId }) => {
         })
         .catch((error) => {
           console.error("Error fetching files:", error);
-      
         });
     };
 
@@ -27,7 +27,6 @@ const FileList = ({ currentFolderId }) => {
 
   const deleteFile = async (fileId) => {
     try {
-   
       await axios.delete(`/api/files/${fileId}`);
       setFiles((prevFiles) => prevFiles.filter((file) => file.id !== fileId));
     } catch (error) {
@@ -37,7 +36,6 @@ const FileList = ({ currentFolderId }) => {
 
   return (
     <div>
-
       <div className="overflow-x-auto md:container p-2 mx-auto mt-12 bg-white rounded border-2  border-cyan">
         <table className="min-w-full  font-sans ">
           <thead className="bg-cyan  font-small  text-white font-normal  ">
@@ -62,7 +60,27 @@ const FileList = ({ currentFolderId }) => {
 
                   switch (fileExtension) {
                     case "pdf":
-                      fileContent = <span>PDF Preview Placeholder</span>;
+                    case "docs":
+                      fileContent = (
+                        <div className="flex flex-row">
+                            <a
+                              href={`http://127.0.0.1:8000/storage/${file.name}`}
+                              target="_blank"
+                              download={file.name}
+                              rel="noopener noreferrer"
+                            >
+                              
+                              <img
+                                src={pdfsvg}
+                                alt={file.name}
+                                height={40}
+                                width={60}
+                              />
+                            
+                            </a>  
+                                        
+                        </div>
+                      );
                       break;
                     case "txt":
                       fileContent = <span>Text Content Placeholder</span>;
@@ -118,7 +136,6 @@ const FileList = ({ currentFolderId }) => {
                       </td>
                       <td className="p-3">
                         <Button
-                        
                           text-transform="capitalize"
                           filled="false"
                           size="small"
