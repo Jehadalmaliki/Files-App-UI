@@ -55,7 +55,7 @@ function Button(props) {
                 )}
             >
                <div style={{ display: 'flex', alignItems: 'center' }}>
-        {imgSrc && <img src={imgSrc} alt="" className="w-12 h dark:text-gray-100 mr-2"  />} {/* Apply the provided class */}
+        {imgSrc && <img src={imgSrc} alt="" className="w-8 h dark:text-gray-100 mr-2"  />} {/* Apply the provided class */}
         <span style={{ textTransform, fontSize }}>{content}</span>
       </div>
             </button>

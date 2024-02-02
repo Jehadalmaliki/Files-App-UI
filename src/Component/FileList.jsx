@@ -39,6 +39,8 @@ const FileList = ({ currentFolderId }) => {
     }
   };
 
+ 
+
   return (
     <div>
        <ToastContainer />
@@ -47,8 +49,9 @@ const FileList = ({ currentFolderId }) => {
           <thead className="bg-cyan  font-small  text-white font-normal  ">
             <tr className="text-left">
               <th className="p-3">ID</th>
-              <th className="p-3">Name</th>
               <th className="p-3">Privew</th>
+              <th className="p-3">Name</th>
+              
               <th className="p-3">Issued</th>
               <th className="p-3">size</th>
               <th className="p-3">Action</th>
@@ -142,11 +145,12 @@ const FileList = ({ currentFolderId }) => {
                       <td className="p-3">
                         <p>{file.id}</p>
                       </td>
-                      <td className="p-3">
-                        <p>{file.name}</p>
-                      </td>
+                      
                       <td className="p-3">
                         <p>{fileContent}</p>
+                      </td>
+                      <td className="p-3">
+                        <p>{file.name}</p>
                       </td>
                       <td className="p-3">
                         <p>
