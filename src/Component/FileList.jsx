@@ -1,12 +1,14 @@
 // FileList.js
 
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import Button from "./ui/Button";
 import removehsvg from "../assets/remove.svg";
 import pdfsvg from "../assets/pdf.svg";
 import docsvg from "../assets/doc.svg";
-import { Document, Page } from "react-pdf";
+
 
 const FileList = ({ currentFolderId }) => {
   const [files, setFiles] = useState([]);
@@ -28,15 +30,18 @@ const FileList = ({ currentFolderId }) => {
 
   const deleteFile = async (fileId) => {
     try {
-      await axios.delete(`/api/files/${fileId}`);
+      await axios.delete(`http://127.0.0.1:8000/api/files/delete/${fileId}`);
       setFiles((prevFiles) => prevFiles.filter((file) => file.id !== fileId));
+      toast.success('File deleted successfully.');
     } catch (error) {
       console.error("Error deleting file:", error);
+      toast.error('Error deleting file.');
     }
   };
 
   return (
     <div>
+       <ToastContainer />
       <div className="overflow-x-auto md:container p-2 mx-auto mt-12 bg-white rounded border-2  border-cyan">
         <table className="min-w-full  font-sans ">
           <thead className="bg-cyan  font-small  text-white font-normal  ">
