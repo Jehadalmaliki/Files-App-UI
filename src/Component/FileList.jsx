@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "./ui/Button";
+import removehsvg from "../assets/remove.svg";
+
 
 const FileList = ({ currentFolderId }) => {
   const [files, setFiles] = useState([]);
@@ -16,20 +18,16 @@ const FileList = ({ currentFolderId }) => {
         })
         .catch((error) => {
           console.error("Error fetching files:", error);
-          // Handle errors here
+      
         });
     };
 
     fetchFiles();
   }, []);
-  const viewFileDetails = (fileId) => {
-    // Implement file details view functionality
-    console.log(`View details for file with id ${fileId}`);
-  };
 
   const deleteFile = async (fileId) => {
     try {
-      // Implement file deletion functionality
+   
       await axios.delete(`/api/files/${fileId}`);
       setFiles((prevFiles) => prevFiles.filter((file) => file.id !== fileId));
     } catch (error) {
@@ -39,19 +37,6 @@ const FileList = ({ currentFolderId }) => {
 
   return (
     <div>
-      {/* <Button
-              content="View Details"
-              text-transform="capitalize"
-              filled="true"
-              size="small"
-              fontSize="text-sm md:text-base text-white"
-              radius="md"
-              onClick={() => viewFileDetails(file.id)}
-              imgClass=""
-              interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
-            />
-          
-     */}
 
       <div className="overflow-x-auto md:container p-2 mx-auto mt-12 bg-white rounded border-2  border-cyan">
         <table className="min-w-full  font-sans ">
@@ -92,6 +77,8 @@ const FileList = ({ currentFolderId }) => {
                         <img
                           src={`http://127.0.0.1:8000/storage/${file.name}`}
                           alt={file.name}
+                          height={50}
+                          width={90}
                         />
                       );
                       break;
@@ -131,15 +118,14 @@ const FileList = ({ currentFolderId }) => {
                       </td>
                       <td className="p-3">
                         <Button
-                          content="Delete"
+                        
                           text-transform="capitalize"
-                          filled="true"
+                          filled="false"
                           size="small"
-                          fontSize="text-sm md:text-base text-white"
                           radius="md"
                           onClick={() => deleteFile(file.id)}
-                          imgClass=""
-                          interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
+                          imgSrc={removehsvg}
+                          interaction="transform  transition hover:scale-75  "
                         />
                       </td>
                     </tr>
