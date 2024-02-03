@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumbs, Link } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
+import RouteFolder from "../assets/RouteFolder.svg";
 
 const AppBreadcrumbs = () => {
   const location = useLocation();
@@ -9,7 +10,7 @@ const AppBreadcrumbs = () => {
   return (
     <Breadcrumbs separator="›" aria-label="breadcrumb">
       <Link color="textPrimary" href="/">
-        Folders
+      <img src={RouteFolder} alt={''} height={20} width={40}  className='bg-cayn'/>
       </Link>
 
       {pathnames.map((name, index) => {
