@@ -6,9 +6,12 @@ import FolderSvg from "../../assets/folder.svg";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import pdfsvg from "../../assets/pdf.svg";
+import { useNavigate } from 'react-router';
+
 
 const FolderNavigation = ({ currentFolderId, onFolderChange }) => {
   const [newFolderName, setNewFolderName] = useState("");
+  const navigate = useNavigate();
 
   const handleCreateFolder = async (e) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ const FolderNavigation = ({ currentFolderId, onFolderChange }) => {
       }
 
       setNewFolderName("");
+      // navigate(`/folders/${newFolder.id}`);
     } catch (error) {
       console.error("Error creating folder:", error);
       toast.error('Error creating folder');

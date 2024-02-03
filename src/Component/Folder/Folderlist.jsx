@@ -6,10 +6,12 @@ import Button from "../ui/Button";
 import removehsvg from "../../assets/remove.svg";
 import folderSvg from "../../assets/folder.svg";
 import docsvg from "../../assets/doc.svg";
+import { useNavigate } from 'react-router-dom';
 
 const Folderlist = () => {
   const [folders, setFolders] = useState([]);
   const [selectedParent, setSelectedParent] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchFolders();
@@ -27,13 +29,24 @@ const Folderlist = () => {
   };
 
   const renderFolders = (folders) => {
+   
+  
     return folders.map((folder) => (
       <React.Fragment key={folder.id}>
         {folder.parent_id === null && ( // Only render if the folder is a main folder
           <tr>
             <td className="p-3">{folder.id}</td>
             <td className="p-3">
-              <img src={folderSvg} alt={folder.name} height={50} width={70} />
+              <a
+                href={`/${folder.id}`}  // Link to the detailed page
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(`/folders/${folder.id}`);  // Use navigate to go to a detailed page
+                }}
+                rel="noopener noreferrer"
+              >
+                <img src={folderSvg} alt={folder.name} height={50} width={70} />
+              </a>
               {folder.name}
             </td>
             <td className="p-3">
@@ -59,10 +72,10 @@ const Folderlist = () => {
     try {
       await axios.delete(`http://127.0.0.1:8000/api/folders/${folderId}`);
       setFolders((prevFiles) => prevFiles.filter((file) => file.id !== folderId));
-      toast.success('File deleted successfully.');
+      toast.success('folder deleted successfully.');
     } catch (error) {
-      console.error("Error deleting file:", error);
-      toast.error('Error deleting file.');
+      console.error("Error deleting folder:", error);
+      toast.error('Error deleting folder.');
     }
   };
 
