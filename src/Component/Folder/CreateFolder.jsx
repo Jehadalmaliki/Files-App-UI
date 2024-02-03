@@ -35,7 +35,9 @@ const FolderNavigation = ({ currentFolderId, onFolderChange }) => {
       }
 
       setNewFolderName("");
-      navigate(`/folders`);
+      if (!currentFolderId) {
+        navigate(`/folders`);
+      }
     } catch (error) {
       console.error("Error creating folder:", error);
       toast.error('Error creating folder');
