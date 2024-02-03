@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-import Uploadhsvg from "../assets/upload.svg";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
+import Uploadhsvg from "../../assets/upload.svg";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import FolderSvg from "../../assets/folder.svg";
 
 const FileUpload = ({ currentFolderId, onUpload }) => {
-  const [selectedFiles, setSelectedFiles] = useState(null);
-
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileChange = (e) => {
     setSelectedFiles(e.target.files || null);
@@ -49,11 +49,11 @@ const FileUpload = ({ currentFolderId, onUpload }) => {
   };
 
   return (
-    <form onSubmit={handleSubmite}>
+    <form onSubmit={handleSubmite} enctype="multipart/form-data">
       <div className="flex flex-row space-x-[0.7rem]">
         <Input
           type="file"
-          name="name"
+          name="name[]"
           placeholder="name"
           inputWidthSize="w-1/2"
           onChange={handleFileChange}
@@ -72,6 +72,8 @@ const FileUpload = ({ currentFolderId, onUpload }) => {
           imgClass=""
           interaction="transform hover:bg-yellow transition hover:scale-75 active:bg-cyan focus:outline-none focus:ring focus:ring-cyan"
         />
+         
+     
       </div>
     </form>
   );
