@@ -49,7 +49,7 @@ const FileUpload = ({ currentFolderId, onUpload }) => {
   };
 
   return (
-    <form onSubmit={handleSubmite} enctype="multipart/form-data">
+    <form onSubmit={handleSubmite} encType="multipart/form-data">
       <div className="flex flex-row space-x-[0.7rem]">
         <Input
           type="file"
