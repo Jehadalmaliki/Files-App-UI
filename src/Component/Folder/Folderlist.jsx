@@ -4,9 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Button from "../ui/Button";
 import removehsvg from "../../assets/remove.svg";
-import folderSvg from "../../assets/folder.svg";
+import foldersvg from "../../assets/folderr.svg"
 import docsvg from "../../assets/doc.svg";
 import { useNavigate } from 'react-router-dom';
+import FolderNavigation from "./CreateFolder";
 
 const Folderlist = () => {
   const [folders, setFolders] = useState([]);
@@ -45,7 +46,7 @@ const Folderlist = () => {
                 }}
                 rel="noopener noreferrer"
               >
-                <img src={folderSvg} alt={folder.name} height={50} width={70} />
+                <img src={foldersvg} alt={folder.name} height={50} width={70} />
               </a>
               {folder.name}
             </td>
@@ -81,8 +82,10 @@ const Folderlist = () => {
 
   return (
     <div>
-      <ToastContainer />
+
       <div className="overflow-x-auto md:container p-2 mx-auto mt-12 bg-white rounded border-2  border-cyan">
+
+        <FolderNavigation/>
         <table className="min-w-full  font-sans ">
           <thead className="bg-cyan  font-small  text-white font-normal  ">
             <tr className="text-left">
