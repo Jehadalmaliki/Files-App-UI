@@ -3,17 +3,20 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import FolderNavigation from './CreateFolder';
 import Folderlist from './Folderlist';
-import folderSvg from "../../assets/folder.svg";
+import foldersvg from "../../assets/folderr.svg"
 import Folderchildlist from './Folderchildlist';
 import removehsvg from "../../assets/remove.svg";
 import Button from "../ui/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FileUpload from '../Files/FileUpload';
+import FileUploadFolder from '../Folder/FileUploadFolder';
+import { useNavigate } from 'react-router-dom';
+
 
 const FolderDetails = () => {
   const { id } = useParams();
-  const [folder, setFolder] = useState(null);
+  const [folder, setFolder] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFolderDetails = async () => {
@@ -31,11 +34,14 @@ const FolderDetails = () => {
   if (!folder) {
     return <div>Loading...</div>;
   }
-  const handleRemoveFolder =async (folderId) => {
+  const handleRemoveFolder = async (folderId) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/folders/${folderId}`);
-      setFolder((prevFiles) => prevFiles.filter((file) => file.id !== folderId));
-      toast.success('folder deleted successfully.');
+      const response = await axios.delete(`http://127.0.0.1:8000/api/folders/${folderId}`);
+      toast.success('Folder deleted successfully.');
+
+      const parentFolderId = response.data.parentFolderId; // Adjust this according to your API response
+
+      navigate(`/folders/${parentFolderId}`);
     } catch (error) {
       console.error("Error deleting folder:", error);
       toast.error('Error deleting folder.');
@@ -47,7 +53,7 @@ const FolderDetails = () => {
       <div className="flex flex-col md:flex-row md:justify-between  h-16  space-y-2 md:space-y-0 md:space-x-2">
       <ToastContainer />
         <FolderNavigation currentFolderId={folder.id}/>
-        <FileUpload />
+        <FileUploadFolder currentFolderId={folder.id} />
         <Button
                 text-transform="capitalize"
                 filled="false"
@@ -59,7 +65,7 @@ const FolderDetails = () => {
               />
         </div>
   
-       <h2>Folder Details:<img src={folderSvg} alt={folder.name} height={50} width={70} /> {folder.name}</h2>
+       <img src={foldersvg} alt={folder.name} height={50} width={70} /> {folder.name}
        <Folderchildlist  currentFolderId={folder.id}/>
     </div>
   );
