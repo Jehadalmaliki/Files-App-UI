@@ -26,16 +26,6 @@ const Folderlist = () => {
       });
   };
 
-  const handleToggleChildren = (parentFolder) => {
-    if (selectedParent === parentFolder.id) {
-      // If the parent is already selected, deselect it
-      setSelectedParent(null);
-    } else {
-      // Otherwise, select the parent to show its children
-      setSelectedParent(parentFolder.id);
-    }
-  };
-
   const renderFolders = (folders) => {
     return folders.map((folder) => (
       <React.Fragment key={folder.id}>
@@ -48,10 +38,13 @@ const Folderlist = () => {
             </td>
             <td className="p-3">
               <Button
-                content="Remove"
-                imgSrc={removehsvg}
-                imgAlt="Remove Folder"
+                text-transform="capitalize"
+                filled="false"
+                size="small"
+                radius="md"
                 onClick={() => handleRemoveFolder(folder.id)}
+                imgSrc={removehsvg}
+                interaction="transform  transition hover:scale-75  "
               />
             </td>
           </tr>
@@ -62,9 +55,15 @@ const Folderlist = () => {
 
   // ...
 
-  const handleRemoveFolder = (folderId) => {
-    // Implement the logic to remove the folder
-    toast.success(`Folder with ID ${folderId} removed successfully.`);
+  const handleRemoveFolder =async (folderId) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/folders/${folderId}`);
+      setFolders((prevFiles) => prevFiles.filter((file) => file.id !== folderId));
+      toast.success('File deleted successfully.');
+    } catch (error) {
+      console.error("Error deleting file:", error);
+      toast.error('Error deleting file.');
+    }
   };
 
   return (
