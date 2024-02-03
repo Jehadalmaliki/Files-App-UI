@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Folderchildlist = ({ currentFolderId }) => {
   const [folderData, setFolderData] = useState({});
+ 
   const [selectedParent, setSelectedParent] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -56,17 +57,17 @@ const Folderchildlist = ({ currentFolderId }) => {
   };
   const getFileContent = (file) => {
     const fileExtension = file.name.split(".").pop().toLowerCase();
-
+    console.log(folderData);
     switch (fileExtension) {
       case "pdf":
         return (
-          <a href={`http://127.0.0.1:8000/storage/${file.name}`} target="_blank" download={file.name} rel="noopener noreferrer">
+          <a href={`http://127.0.0.1:8000/storage/${folderData.path}/${file.name}`} target="_blank" download={file.name} rel="noopener noreferrer">
             <img src={pdfsvg} alt={file.name} height={50} width={70} />
           </a>
         );
       case "docx":
         return (
-          <a href={`http://127.0.0.1:8000/storage/${file.name}`} target="_blank" download={file.name} rel="noopener noreferrer">
+          <a href={`http://127.0.0.1:8000/storage/${folderData.path}/${file.name}`} target="_blank" download={file.name} rel="noopener noreferrer">
             <img src={docsvg} alt={file.name} height={50} width={70} />
           </a>
         );
@@ -75,7 +76,7 @@ const Folderchildlist = ({ currentFolderId }) => {
       case "png":
       case "gif":
         return  <img
-        src={`http://127.0.0.1:8000/storage/${folderData.id}/${file.name}`}
+        src={`http://127.0.0.1:8000/storage/${folderData.path}/${file.name}`}
         alt={file.name}
         height={50}
         width={90}
