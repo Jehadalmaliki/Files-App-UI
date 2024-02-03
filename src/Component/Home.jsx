@@ -2,7 +2,7 @@
 
 import React from "react";
 import FileUpload from "./Files/FileUpload";
-import FolderNavigation from "./Folder/FolderNavigation";
+import FolderNavigation from "./Folder/CreateFolder";
 import FileList from "./Files/FileList";
 import Input from "./ui/Input";
 
@@ -19,8 +19,7 @@ const Home = () => {
           <FolderNavigation />
         </div>
       </header>
-      <Folderlist />
-      {/* <FileList /> */}
+  
     </div>
   );
 };
