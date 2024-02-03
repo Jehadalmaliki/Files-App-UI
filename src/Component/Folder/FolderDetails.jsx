@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import FolderNavigation from './FolderNavigation';
+import FolderNavigation from './CreateFolder';
 import Folderlist from './Folderlist';
 import folderSvg from "../../assets/folder.svg";
 import Folderchildlist from './Folderchildlist';
@@ -9,6 +9,7 @@ import removehsvg from "../../assets/remove.svg";
 import Button from "../ui/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FileUpload from '../Files/FileUpload';
 
 const FolderDetails = () => {
   const { id } = useParams();
@@ -42,10 +43,11 @@ const FolderDetails = () => {
   };
   return (
     <div className="md:container p-2 mx-auto my-1 bg-light-cyan border border-cyan rounded">
-    <header className="p-4 dark:bg-gray-800 dark:text-gray-100">
-      <div className="flex flex-col md:flex-row md:justify-between items-center h-16 mx-auto space-y-2 md:space-y-0 md:space-x-2">
+   
+      <div className="flex flex-col md:flex-row md:justify-between  h-16  space-y-2 md:space-y-0 md:space-x-2">
       <ToastContainer />
         <FolderNavigation currentFolderId={folder.id}/>
+        <FileUpload />
         <Button
                 text-transform="capitalize"
                 filled="false"
@@ -56,7 +58,7 @@ const FolderDetails = () => {
                 interaction="transform  transition hover:scale-75  "
               />
         </div>
-        </header>
+  
        <h2>Folder Details:<img src={folderSvg} alt={folder.name} height={50} width={70} /> {folder.name}</h2>
        <Folderchildlist  currentFolderId={folder.id}/>
     </div>
