@@ -4,7 +4,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import Button from "../ui/Button";
 import removehsvg from "../../assets/remove.svg";
+import pdfsvg from "../../assets/pdf.svg";
 import docsvg from "../../assets/doc.svg";
+import moment from 'moment';
 import foldersvg from "../../assets/folderr.svg"
 
 import { useNavigate } from 'react-router-dom';
@@ -52,6 +54,49 @@ const Folderchildlist = ({ currentFolderId }) => {
       console.error(error);
     }
   };
+  const getFileContent = (file) => {
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+
+    switch (fileExtension) {
+      case "pdf":
+        return (
+          <a href={`http://127.0.0.1:8000/storage/${file.name}`} target="_blank" download={file.name} rel="noopener noreferrer">
+            <img src={pdfsvg} alt={file.name} height={50} width={70} />
+          </a>
+        );
+      case "docx":
+        return (
+          <a href={`http://127.0.0.1:8000/storage/${file.name}`} target="_blank" download={file.name} rel="noopener noreferrer">
+            <img src={docsvg} alt={file.name} height={50} width={70} />
+          </a>
+        );
+      case "jpg":
+      case "jpeg":
+      case "png":
+      case "gif":
+        return  <img
+        src={`http://127.0.0.1:8000/storage/${folderData.id}/${file.name}`}
+        alt={file.name}
+        height={50}
+        width={90}
+      />;
+      default:
+        return <span>{file.name}</span>;
+    }
+  };
+  const getTimeDifference = (createdAt) => {
+    const currentDate = moment();
+    const fileDate = moment(createdAt);
+
+    const diffInMonths = currentDate.diff(fileDate, 'months');
+    const diffInDays = currentDate.diff(fileDate, 'days');
+
+    if (diffInMonths > 0) {
+      return `${diffInMonths} months ago`;
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
   return (
     <div>
       <ToastContainer />
@@ -84,7 +129,7 @@ const Folderchildlist = ({ currentFolderId }) => {
                 <td className="p-3">{child.id}</td>
                 <td className="p-3"> <img src={foldersvg} alt={child.name} height={50} width={70} />{child.name}</td>
                 <td className="p-3">{child.parent_id}</td>
-                <td className="p-3">{child.created_at}</td>
+                <td className="p-3">{moment(child.created_at).fromNow()}</td>
                 <td className="p-3">{}</td>
                 
                 <td className="p-3">
@@ -106,9 +151,9 @@ const Folderchildlist = ({ currentFolderId }) => {
             {(folderData.files ?? []).map((file) => (
               <tr key={file.id} onClick={() => handleFileClick(file.id)} style={{ cursor: 'pointer' }}>
                 <td className="p-3">{file.id}</td>
-                <td className="p-3">{file.name}</td>
+                <td className="p-3">{getFileContent(file)}{file.name}</td>
                 <td className="p-3">{file.folder_id}</td>
-                <td className="p-3">{file.created_at}</td>
+                <td className="p-3">{moment(file.created_at).fromNow()}</td>
                 <td className="p-3">{file.size}</td>
                 <td className="p-3">
                   <Button
