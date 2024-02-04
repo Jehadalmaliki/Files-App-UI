@@ -29,8 +29,10 @@ npm install
 
 ## Run the development server:
 
-php artisn serv
-The application should now be accessible at http://localhost:8000.
+npm start
+The application should now be accessible at http://localhost:3000.
+
+
 ## screenshot
 
 <img width="1431" alt="‏لقطة الشاشة ٢٠٢٤-٠٢-٠٤ في ٧ ١٩ ٠١ ص" src="https://github.com/Jehadalmaliki/Files-App-UI/assets/49036484/581eb5c5-ef87-4a32-8b0c-62ec5148fb36">
