@@ -39,11 +39,10 @@ The application should now be accessible at http://localhost:3000.
 
 <img width="1431" alt="‏لقطة الشاشة ٢٠٢٤-٠٢-٠٤ في ٧ ١٩ ٢٩ ص" src="https://github.com/Jehadalmaliki/Files-App-UI/assets/49036484/505a4d13-6ca3-4117-993a-edbe7bec0463">
 
-<img width="1482" alt="‏لقطة الشاشة ٢٠٢٤-٠٢-٠٣ في ٨ ٤٤ ٠٩ ص" src="https://github.com/Jehadalmaliki/Files-App-UI/assets/49036484/4d068cd8-7f06-4b33-be3d-d21d1c6531ae">
+<img width="1431" alt="‏لقطة الشاشة ٢٠٢٤-٠٢-٠٤ في ٧ ٢٠ ٢٧ ص" src="https://github.com/Jehadalmaliki/Files-App-UI/assets/49036484/00fbba56-32e1-48bb-92b3-8a8a22c2b156">
 
 
-<img width="1482" alt="‏لقطة الشاشة ٢٠٢٤-٠٢-٠٣ في ٨ ٤٤ ٠٢ ص" src="https://github.com/Jehadalmaliki/Files-App-UI/assets/49036484/0656305e-571c-4bc2-aac0-bdfaae411644">
-
+<img width="1431" alt="‏لقطة الشاشة ٢٠٢٤-٠٢-٠٤ في ٧ ٢٠ ٤٣ ص" src="https://github.com/Jehadalmaliki/Files-App-UI/assets/49036484/0ff102d1-3467-4ced-95dd-0886e29d3ebe">
 
 
 ## Contributing
